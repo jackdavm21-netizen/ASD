@@ -1,455 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operations - UKFR</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        * {
-            font-family: 'DM Sans', sans-serif;
-        }
-        h1, h2, h3, h4 {
-            font-family: 'Fraunces', serif;
-        }
-        body {
-            background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1e 50%, #000000 100%);
-            min-height: 100vh;
-        }
-        .glass-card {
-            background: rgba(15, 15, 30, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(123, 141, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(123, 141, 255, 0.1);
-        }
-        .neon-border {
-            border: 2px solid rgba(123, 141, 255, 0.5);
-            box-shadow: 0 0 20px rgba(123, 141, 255, 0.3), inset 0 0 20px rgba(123, 141, 255, 0.1);
-        }
-        .text-neon {
-            color: #7b8dff;
-            text-shadow: 0 0 10px rgba(123, 141, 255, 0.5);
-        }
-        .text-neon-purple {
-            color: #9f6bff;
-            text-shadow: 0 0 10px rgba(159, 107, 255, 0.5);
-        }
-        .nav-link {
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .nav-link:hover {
-            color: #7b8dff;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #7b8dff, #9f6bff);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .hero-text {
-            background: linear-gradient(135deg, #7b8dff 0%, #9f6bff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .status-active {
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid rgba(34, 197, 94, 0.5);
-            color: #22c55e;
-        }
-        .status-alert {
-            background: rgba(234, 179, 8, 0.2);
-            border: 1px solid rgba(234, 179, 8, 0.5);
-            color: #eab308;
-        }
-        .status-critical {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            color: #ef4444;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>WebNova</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="BrightLayer Web Studio creates clean, fast, modern websites for businesses that want to look professional and approachable.">
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --accent-alt: #f97316;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #f97316);
+    }
+
+    .logo-main {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .logo-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.9;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Hero */
+
+    .hero {
+      padding: 3rem 0 2.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3.2vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 30rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.6rem;
+      font-size: 0.8rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .btn-primary {
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: #cbd5e1;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.2rem;
+      font-size: 0.85rem;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card-title {
+      font-weight: 600;
+    }
+
+    .hero-card-pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1d4ed8;
+      font-size: 0.75rem;
+    }
+
+    .hero-card-list {
+      list-style: none;
+      margin-top: 0.4rem;
+    }
+
+    .hero-card-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+      color: var(--muted);
+    }
+
+    .hero-card-bullet {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-alt);
+    }
+
+    /* Sections */
+
+    section {
+      padding: 2.8rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 28rem;
+    }
+
+    /* Services */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .service-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      font-size: 0.86rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .service-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .service-title {
+      font-weight: 600;
+    }
+
+    .service-text {
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .service-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    .service-tag {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* Process */
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.8rem;
+      align-items: flex-start;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.7rem;
+      align-items: flex-start;
+      font-size: 0.86rem;
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .step-text {
+      color: var(--muted);
+    }
+
+    .process-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .process-card strong {
+      color: var(--text);
+    }
+
+    .process-list {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+
+    .process-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* Contact */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.8rem;
+      align-items: flex-start;
+    }
+
+    .contact-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .contact-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+    }
+
+    .contact-badge {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .contact-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .field {
+      margin-bottom: 0.7rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .input,
+    .textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.6rem;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .contact-hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .contact-note-small {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 0 1.6rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      margin-top: 2rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .services-grid,
+      .process-grid,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 2.4rem;
+      }
+
+      section {
+        padding: 2.2rem 0;
+      }
+    }
+  </style>
 </head>
-<body class="text-gray-100">
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 glass-card">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-2">
-                    <i data-lucide="shield-check" class="text-neon" stroke-width="2.5"></i>
-                    <span class="text-xl font-bold hero-text">UKFR</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="index.html" class="nav-link text-gray-300 hover:text-neon">Home</a>
-                    <a href="operations.html" class="nav-link text-neon font-medium">Operations</a>
-                    <a href="rules.html" class="nav-link text-gray-300 hover:text-neon">Rules</a>
-                    <a href="applications.html" class="nav-link text-gray-300 hover:text-neon">Applications</a>
-                    <a href="staff.html" class="nav-link text-gray-300 hover:text-neon">Staff</a>
-                    <a href="support.html" class="nav-link text-gray-300 hover:text-neon">Support</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-300">
-                        <i data-lucide="menu"></i>
-                    </button>
-                </div>
+<body>
+  <div class="page">
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <a href="#top" class="logo">
+            <div class="logo-mark"></div>
+            <div>
+              <div class="logo-main">WebNova</div>
+              <div class="logo-sub">Cheap, Fast, Reliable</div>
             </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden glass-card mt-2 mx-4 rounded-lg">
-            <div class="flex flex-col space-y-2 p-4">
-                <a href="index.html" class="text-gray-300 hover:text-neon py-2">Home</a>
-                <a href="operations.html" class="text-neon font-medium py-2">Operations</a>
-                <a href="rules.html" class="text-gray-300 hover:text-neon py-2">Rules</a>
-                <a href="applications.html" class="text-gray-300 hover:text-neon py-2">Applications</a>
-                <a href="staff.html" class="text-gray-300 hover:text-neon py-2">Staff</a>
-                <a href="support.html" class="text-gray-300 hover:text-neon py-2">Support</a>
-            </div>
-        </div>
-    </nav>
+          </a>
+          <div class="nav-links">
+            <a href="#services">Services</a>
+          </div>
+        </nav>
+      </div>
+    </header>
 
-    <!-- Header -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center space-y-4">
-            <div class="inline-block glass-card px-4 py-2 rounded-full mb-2">
-                <span class="text-neon text-sm font-semibold tracking-wider">COMMAND CENTER</span>
+    <main id="top">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">
+                <div class="eyebrow-dot"></div>
+                Websites that feel professional, not robotic
+              </div>
+              <h1 class="hero-title">
+                Simple, modern websites for <span>real businesses</span>.
+              </h1>
+              <p class="hero-subtitle">
+                I design and build lightweight, clean sites that load fast, look trustworthy, and still have a bit of personality.
+              </p>
+
+              <div class="hero-tags">
+                <div class="tag">Fast, no‑nonsense builds</div>
+                <div class="tag">Mobile‑friendly by default</div>
+                <div class="tag">Plain‑English communication</div>
+              </div>
+
+              <div class="hero-actions">
+                <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                  Tell me about your project
+                </button>
+                <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+                  View services & pricing
+                </button>
+              </div>
+
+              <div class="hero-meta">
+                <div>
+                  <strong>Typical timeline:</strong><br />
+                  ~1-2 Days.
+                </div>
+                <div>
+                  <strong>Tech:</strong><br />
+                  HTML, CSS, and simple integrations—no unnecessary bloat.
+                </div>
+              </div>
             </div>
-            <h1 class="text-5xl md:text-6xl font-bold hero-text">Active Operations</h1>
-            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Real-time tactical coordination and incident management across all response sectors
+
+            <aside class="hero-card" aria-hidden="true">
+              <div class="hero-card-header">
+                <div class="hero-card-title">What working together feels like</div>
+                <div class="hero-card-pill">Straightforward & collaborative</div>
+              </div>
+              <ul class="hero-card-list">
+                <li>
+                  <div class="hero-card-bullet"></div>
+                  Clear structure and deadlines from day one.
+                </li>
+                <li>
+                  <div class="hero-card-bullet"></div>
+                  You see drafts early—no “big reveal” that misses the mark.
+                </li>
+                <li>
+                  <div class="hero-card-bullet"></div>
+                  A site you can actually explain and update later.
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Services</h2>
+            <p class="section-subtitle">
+              Simple packages that cover the most common website needs. Custom setups are always possible if you’re in‑between.
             </p>
+          </div>
+
+          <div class="services-grid">
+            <article class="service-card">
+              <div class="service-label">Starter</div>
+              <div class="service-title">Single‑page launch site</div>
+              <p class="service-text">
+                A focused one‑page site for new businesses, events, or creators who need a clean online presence quickly.
+              </p>
+              <div class="service-meta">
+                <span class="service-tag">1‑day delivery</span>
+                <span>£5</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-label">Core</div>
+              <div class="service-title">Multi‑page business site</div>
+              <p class="service-text">
+                A small, structured site with pages for services, about, and contact—designed to look professional and easy to navigate.
+              </p>
+              <div class="service-meta">
+                <span class="service-tag">Most popular</span>
+                <span>From £10</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-label">Refresh</div>
+              <div class="service-title">Redesign & tidy‑up</div>
+              <p class="service-text">
+                Keep your existing content but improve layout, readability, and overall feel so your site finally matches your standards.
+              </p>
+              <div class="service-meta">
+                <span>£10</span>
+              </div>
+            </article>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Status Overview -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-semibold text-lg">System Status</h3>
-                    <span class="status-active px-3 py-1 rounded-full text-xs font-semibold">OPERATIONAL</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <i data-lucide="activity" class="text-green-400" size="32"></i>
-                    <div>
-                        <p class="text-2xl font-bold text-gray-100">98.7%</p>
-                        <p class="text-sm text-gray-400">Uptime Rate</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-semibold text-lg">Active Units</h3>
-                    <span class="status-active px-3 py-1 rounded-full text-xs font-semibold">DEPLOYED</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <i data-lucide="users-round" class="text-neon" size="32"></i>
-                    <div>
-                        <p class="text-2xl font-bold text-gray-100">127</p>
-                        <p class="text-sm text-gray-400">Units On Duty</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-semibold text-lg">Response Time</h3>
-                    <span class="status-active px-3 py-1 rounded-full text-xs font-semibold">OPTIMAL</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <i data-lucide="timer" class="text-neon-purple" size="32"></i>
-                    <div>
-                        <p class="text-2xl font-bold text-gray-100">3.2m</p>
-                        <p class="text-sm text-gray-400">Average Time</p>
-                    </div>
-                </div>
-            </div>
+            <aside class="process-card">
+              <strong>Every project includes:</strong>
+              <ul class="process-list">
+                <li>Responsive layout that works on phones, tablets, and desktops.</li>
+                <li>Clear headings and basic on‑page SEO structure.</li>
+                <li>Lightweight code—no unnecessary plugins or page builders.</li>
+                <li>Support around launch so you’re not left guessing.</li>
+              </ul>
+            </aside>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Active Bulletins -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 class="text-3xl font-bold text-neon-purple mb-8">Active Bulletins</h2>
-        <div class="space-y-6">
-            <!-- Bulletin 1 -->
-            <div class="glass-card rounded-xl p-6 neon-border">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="status-critical px-3 py-1 rounded-full text-xs font-semibold">URGENT</span>
-                        <span class="text-sm text-gray-400">Posted 2 hours ago</span>
-                    </div>
-                    <i data-lucide="alert-triangle" class="text-red-400"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-100 mb-3">Major Incident - Central London Sector</h3>
-                <p class="text-gray-400 mb-4">
-                    All available units respond to Code Red situation in Westminster area. Traffic control and perimeter security protocols in effect. Coordinate with Metropolitan Command for tactical support.
-                </p>
-                <div class="flex items-center space-x-4 text-sm">
-                    <span class="text-neon flex items-center space-x-1">
-                        <i data-lucide="map-pin" size="16"></i>
-                        <span>Westminster, London</span>
-                    </span>
-                    <span class="text-gray-500">•</span>
-                    <span class="text-gray-400">Incident #UK-2026-0128-ALPHA</span>
-                </div>
+      <!-- Contact -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Tell me what you’re working on</h2>
+            <p class="section-subtitle">
+              A short message is enough. I’ll reply with next steps, rough pricing, and whether I’m a good fit.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div>
+              <p class="contact-note">
+                I work best with people who care about clarity and long‑term usefulness over flashy gimmicks.
+              </p>
+              <div class="contact-badges">
+                <div class="contact-badge">Replies within 24 hours</div>
+                <div class="contact-badge">Plain‑English explanations</div>
+                <div class="contact-badge">No mailing lists or spam</div>
+              </div>
             </div>
 
-            <!-- Bulletin 2 -->
-            <div class="glass-card rounded-xl p-6">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="status-alert px-3 py-1 rounded-full text-xs font-semibold">ALERT</span>
-                        <span class="text-sm text-gray-400">Posted 5 hours ago</span>
-                    </div>
-                    <i data-lucide="radio" class="text-yellow-400"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-100 mb-3">Training Exercise - Northern Sectors</h3>
-                <p class="text-gray-400 mb-4">
-                    Multi-agency tactical response exercise scheduled for Manchester and Liverpool sectors. All units participating should report to designated rally points by 0800 hours. Exercise duration: 6 hours.
-                </p>
-                <div class="flex items-center space-x-4 text-sm">
-                    <span class="text-neon flex items-center space-x-1">
-                        <i data-lucide="map-pin" size="16"></i>
-                        <span>Manchester / Liverpool</span>
-                    </span>
-                    <span class="text-gray-500">•</span>
-                    <span class="text-gray-400">Exercise #TRAIN-2026-014</span>
-                </div>
-            </div>
 
-            <!-- Bulletin 3 -->
-            <div class="glass-card rounded-xl p-6">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="status-active px-3 py-1 rounded-full text-xs font-semibold">INFO</span>
-                        <span class="text-sm text-gray-400">Posted 1 day ago</span>
-                    </div>
-                    <i data-lucide="info" class="text-blue-400"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-100 mb-3">Equipment Upgrade - All Units</h3>
-                <p class="text-gray-400 mb-4">
-                    New tactical communication systems are being rolled out across all sectors. Units should schedule equipment upgrades with their sector command. Enhanced encryption and GPS tracking capabilities included.
-                </p>
-                <div class="flex items-center space-x-4 text-sm">
-                    <span class="text-neon flex items-center space-x-1">
-                        <i data-lucide="wrench" size="16"></i>
-                        <span>All Sectors</span>
-                    </span>
-                    <span class="text-gray-500">•</span>
-                    <span class="text-gray-400">Upgrade Phase 2 of 3</span>
-                </div>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Sector Overview -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 class="text-3xl font-bold text-neon-purple mb-8">Sector Overview</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Sector 1 -->
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-100">London Metro</h3>
-                    <span class="status-critical px-2 py-1 rounded text-xs font-semibold">ACTIVE</span>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Active Units</span>
-                        <span class="text-neon font-semibold">42</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Response Rate</span>
-                        <span class="text-green-400 font-semibold">2.8m avg</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Incidents Today</span>
-                        <span class="text-yellow-400 font-semibold">18</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sector 2 -->
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-100">Manchester</h3>
-                    <span class="status-alert px-2 py-1 rounded text-xs font-semibold">TRAINING</span>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Active Units</span>
-                        <span class="text-neon font-semibold">28</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Response Rate</span>
-                        <span class="text-green-400 font-semibold">3.1m avg</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Incidents Today</span>
-                        <span class="text-green-400 font-semibold">7</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sector 3 -->
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-100">Birmingham</h3>
-                    <span class="status-active px-2 py-1 rounded text-xs font-semibold">OPERATIONAL</span>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Active Units</span>
-                        <span class="text-neon font-semibold">19</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Response Rate</span>
-                        <span class="text-green-400 font-semibold">3.4m avg</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Incidents Today</span>
-                        <span class="text-green-400 font-semibold">5</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sector 4 -->
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-100">Scotland</h3>
-                    <span class="status-active px-2 py-1 rounded text-xs font-semibold">OPERATIONAL</span>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Active Units</span>
-                        <span class="text-neon font-semibold">15</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Response Rate</span>
-                        <span class="text-green-400 font-semibold">4.2m avg</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Incidents Today</span>
-                        <span class="text-green-400 font-semibold">3</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sector 5 -->
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-100">Wales</h3>
-                    <span class="status-active px-2 py-1 rounded text-xs font-semibold">OPERATIONAL</span>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Active Units</span>
-                        <span class="text-neon font-semibold">12</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Response Rate</span>
-                        <span class="text-green-400 font-semibold">3.8m avg</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Incidents Today</span>
-                        <span class="text-green-400 font-semibold">2</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sector 6 -->
-            <div class="glass-card rounded-xl p-6 hover:neon-border transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-100">South Coast</h3>
-                    <span class="status-active px-2 py-1 rounded text-xs font-semibold">OPERATIONAL</span>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Active Units</span>
-                        <span class="text-neon font-semibold">11</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Response Rate</span>
-                        <span class="text-green-400 font-semibold">3.5m avg</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Incidents Today</span>
-                        <span class="text-green-400 font-semibold">4</span>
-                    </div>
-                </div>
-            </div>
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <div>© <span id="year"></span>WebNova.</div>
+          <div class="footer-links">
+            <a href="#top">Back to top</a>
+            <a href="#services">Services</a>
+          </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="glass-card mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-2">
-                        <i data-lucide="shield-check" class="text-neon"></i>
-                        <span class="text-lg font-bold hero-text">UKFR</span>
-                    </div>
-                    <p class="text-gray-400 text-sm">
-                        United Kingdom First Response - Elite tactical operations and emergency coordination.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-neon mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="index.html" class="text-gray-400 hover:text-neon transition-colors">Home</a></li>
-                        <li><a href="operations.html" class="text-gray-400 hover:text-neon transition-colors">Operations</a></li>
-                        <li><a href="rules.html" class="text-gray-400 hover:text-neon transition-colors">Rules</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-neon mb-4">Resources</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="applications.html" class="text-gray-400 hover:text-neon transition-colors">Applications</a></li>
-                        <li><a href="staff.html" class="text-gray-400 hover:text-neon transition-colors">Staff Team</a></li>
-                        <li><a href="support.html" class="text-gray-400 hover:text-neon transition-colors">Support</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-neon mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-neon transition-colors">
-                            <i data-lucide="twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-neon transition-colors">
-                            <i data-lucide="youtube"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-neon transition-colors">
-                            <i data-lucide="linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-                <p>&copy; 2026 UKFR - United Kingdom First Response. All rights reserved.</p>
-                <p class="mt-2 md:mt-0">Tactical Operations Command</p>
-            </div>
-        </div>
+      </div>
     </footer>
+  </div>
 
-    <script>
-        lucide.createIcons();
-        
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      var note = document.getElementById("contact-note");
+      note.textContent = "Thanks for your message! In production, this would send straight to your inbox or CRM.";
+    }
+  </script>
 </body>
 </html>
